@@ -1,14 +1,14 @@
 import bcrypt from "bcrypt";
-import User from "../models/user.model.js";
+import {User} from "../models/user.model.js";
 
 export const Register= async (req, res, next)=>{
     try{
-        const{username,email,password} = req.body;
-        const userPresent=User.findOne({username});
+        const{ username,email,password } = req.body;
+        const userPresent= await User.findOne({username});
         if(userPresent){
             return res.json({msg: "Username already exists", status:false});
         }
-        const emailPresent=User.findOne({email});
+        const emailPresent= await User.findOne({email});
         if(emailPresent){
             return res.json({msg: "Email already exists", status:false});
         }
@@ -28,12 +28,12 @@ export const Register= async (req, res, next)=>{
 
 export const  login= async (req, res, next)=>{
    try {
-    const{username, inputPassword}=req.body;
-    const findUser=User.findOne({username});
+    const{username, password}=req.body;
+    const findUser= await User.findOne({username});
     if(!findUser){
         return res.json({msg:"invalid username", status:false});
     }
-    const checkPassword=  bcrypt.compareSync(inputPassword,findUser.password)
+    const checkPassword= await bcrypt.compare(password,findUser.password)
     if(!checkPassword){
         return res.json({msg:"Invalid Password", status:false});
     }

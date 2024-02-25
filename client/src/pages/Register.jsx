@@ -56,7 +56,8 @@ export default function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      const { email, username, password } = values;
+      console.log("validation", registerRoute);
+      const { username, email, password } = values;
       const { data } = await axios.post(registerRoute, {
         username,
         email,
@@ -68,6 +69,7 @@ export default function Register() {
       }
       if (data.status === true) {
         console.log("resgistered");
+        navigate("/login");
       }
     }
   };

@@ -47,7 +47,8 @@ export default function Login() {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
-        console.log("logged in");
+        console.log("Logged in");
+        navigate("/content")
       }
     }
   };

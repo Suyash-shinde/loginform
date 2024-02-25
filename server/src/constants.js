@@ -1,1 +1,1 @@
-export const DB_NAME="login";
+export const DB_NAME="logged";
